@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taxes on 401k Withdrawal Calculator</title>
+    <meta name="description" content="Calculate the taxes on your 401k withdrawal with our easy-to-use online tool - Taxes on 401k Withdrawal Calculator. Simply input your withdrawal amount and estimated tax rate to see the tax deduction and the net amount after tax.">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f4f7fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            font-size: 24px;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .result-section {
+            background-color: #e9ecef;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+               <h1>Taxes on 401k Withdrawal Calculator</h1>
+            </div>
+            <div class="card-body">
+                <form id="calculatorForm">
+                    <div class="mb-3">
+                        <label for="withdrawalAmount" class="form-label">Withdrawal Amount ($)</label>
+                        <input type="number" class="form-control" id="withdrawalAmount" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="taxRate" class="form-label">Estimated Tax Rate (%)</label>
+                        <input type="number" class="form-control" id="taxRate" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Calculate Taxes</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="result-section mt-4" id="resultSection" style="display: none;">
+            <h4>Estimated Tax Calculation</h4>
+            <p><strong>Total Withdrawal Amount:</strong> $<span id="totalAmount"></span></p>
+            <p><strong>Estimated Tax Amount:</strong> $<span id="taxAmount"></span></p>
+            <p><strong>Net Amount After Tax:</strong> $<span id="netAmount"></span></p>
+        </div>
+    </div>
+
+    <!-- Bootstrap and JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('calculatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const withdrawalAmount = parseFloat(document.getElementById('withdrawalAmount').value);
+            const taxRate = parseFloat(document.getElementById('taxRate').value);
+            
+            if (isNaN(withdrawalAmount) || isNaN(taxRate) || withdrawalAmount <= 0 || taxRate < 0) {
+                alert('Please enter valid values.');
+                return;
+            }
+
+            // Calculate the tax and net amount
+            const taxAmount = (withdrawalAmount * taxRate) / 100;
+            const netAmount = withdrawalAmount - taxAmount;
+
+            // Display the result
+            document.getElementById('totalAmount').textContent = withdrawalAmount.toFixed(2);
+            document.getElementById('taxAmount').textContent = taxAmount.toFixed(2);
+            document.getElementById('netAmount').textContent = netAmount.toFixed(2);
+
+            // Show the result section
+            document.getElementById('resultSection').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
